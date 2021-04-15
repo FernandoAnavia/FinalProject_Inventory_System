@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from management import OpenNewWindowManagement
 from inventory import openNewInventoryW
-
+from reports import OpenNewWindowReports
 
 
 
@@ -20,7 +20,8 @@ def OpenNewWindowAdmnDash():
 
 
     def Reports():
-        print("Reports")
+        app.destroy()
+        OpenNewWindowReports()
 
     def Settings():
         print("Settings")
