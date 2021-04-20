@@ -4,6 +4,7 @@ from db import *
 from tkinter import ttk
 import re
 from tkcalendar import *
+from sys import exit
 
 def OpenNewWindowItemD(Frame):
     def combo_input():
@@ -224,7 +225,20 @@ def OpenNewWindowItemD(Frame):
         except mysql.connector.Error as e:
             messagebox.showerror('Error',e)
 
+    def backCom():
+        from management import OpenNewWindowManagement
 
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('550x450')
+        win1.title('Management')
+        Frame.withdraw()
+        OpenNewWindowManagement(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
 
     #ID
     ID_text = StringVar()
@@ -326,8 +340,12 @@ def OpenNewWindowItemD(Frame):
     clear_btn = Button(Frame, text='Clear input', width=12, command=clear_text)
     clear_btn.grid(row=6, column=5)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=580, y=500)
+
 
     fill_list()
+    Frame.protocol('WM_DELETE_WINDOW',closure)    
     return
 
 

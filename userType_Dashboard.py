@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from db import *
-
+from sys import exit
 
 def OpenNewWindowUserTypeD(Frame):
 
@@ -135,6 +135,20 @@ def OpenNewWindowUserTypeD(Frame):
         except mysql.connector.Error as e:
             messagebox.showerror('Error',e)
 
+    def backCom():
+        from management import OpenNewWindowManagement
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('550x450')
+        win1.title('Management')
+        Frame.withdraw()
+        OpenNewWindowManagement(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
 
     #ID
     userTypeId_text = StringVar()
@@ -180,8 +194,12 @@ def OpenNewWindowUserTypeD(Frame):
     clear_btn = Button(Frame, text='Clear input', width=12, command=clear_text)
     clear_btn.grid(row=3, column=4)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=530, y=300)
+
 
     fill_list()
+    Frame.protocol('WM_DELETE_WINDOW',closure)
     return
 
 if __name__ == "__main__":

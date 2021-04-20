@@ -5,7 +5,7 @@ from tkinter import ttk
 import re
 from tkcalendar import *
 from datetime import date, time, datetime
-
+from sys import exit
 
 
 def OpenNewWindowOrders(Frame):
@@ -161,6 +161,20 @@ def OpenNewWindowOrders(Frame):
         orderDate_entry.delete(0,END)
         orderDate_entry.insert(0,date.today())
 
+    def backCom():
+        from inventory import openNewInventoryW
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('500x300')
+        win1.title('Inventory')
+        Frame.withdraw()
+        openNewInventoryW(win1)
+        #win1.deiconify()
+        return
+    
+    def closure():
+        exit(0)
 
 
     #ID
@@ -234,8 +248,12 @@ def OpenNewWindowOrders(Frame):
     clear_btn = Button(Frame, text='Clear input', width=12, command=clear_text)
     clear_btn.place(x=275, y=200)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=680, y=550)
+
     today1()
     fill_list()
+    Frame.protocol('WM_DELETE_WINDOW',closure)
     return
 
 

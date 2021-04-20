@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from pandas import *
 import matplotlib.pyplot as plt
-
+from sys import exit
 
 
 def OpenNewWindowSells(Frame):
@@ -66,6 +66,20 @@ def OpenNewWindowSells(Frame):
 
         return result
 
+    def backCom():
+        from reports import OpenNewWindowReports
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('400x300')
+        win1.title('Reports Window')
+        Frame.withdraw()
+        OpenNewWindowReports(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
 
     #Buttons
 
@@ -78,6 +92,9 @@ def OpenNewWindowSells(Frame):
     month_Year_btn = Button(Frame, text='Monthly over all years', width=20, command=month_YearFunction)
     month_Year_btn.place(x=450, y=50)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=580, y=150)
+
     # comboYear
 
     n = StringVar()
@@ -86,6 +103,7 @@ def OpenNewWindowSells(Frame):
     yearC_combo['values'] = combo_input()
     yearC_combo.place(x=265, y=100) 
 
+    Frame.protocol('WM_DELETE_WINDOW',closure)
     return
 
 

@@ -5,6 +5,7 @@ from tkinter import ttk
 import re
 from tkcalendar import *
 from logInSession import *
+from sys import exit
 
 def OpenNewWindowStore(Frame):
 
@@ -212,6 +213,20 @@ def OpenNewWindowStore(Frame):
 
         fill_list()
 
+    def backCom():
+        from inventory import openNewInventoryW
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('500x300')
+        win1.title('Inventory')
+        Frame.withdraw()
+        openNewInventoryW(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
 
 
     #Item to be added
@@ -322,8 +337,12 @@ def OpenNewWindowStore(Frame):
     clear_btn = Button(Frame, text='Clear input', width=12, command=clear_ticket)
     clear_btn.place(x=445, y=265)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=680, y=550)
+
 
     startingData()
+    Frame.protocol('WM_DELETE_WINDOW',closure)
     return
 
 

@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from pandas import *
 import matplotlib.pyplot as plt
+from sys import exit
 
 
 
@@ -105,6 +106,21 @@ def OpenNewWindowIAnalysis(Frame):
 
         return result
 
+    def backCom():
+        from reports import OpenNewWindowReports
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('400x300')
+        win1.title('Reports Window')
+        Frame.withdraw()
+        OpenNewWindowReports(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
+
     #Buttons
 
     yearly_btn = Button(Frame, text='Yearly Sells by unit', width=20, command=month_YearFunction)
@@ -116,6 +132,8 @@ def OpenNewWindowIAnalysis(Frame):
     monthly_btn = Button(Frame, text='Stock Available', width=20, command=Stock)
     monthly_btn.place(x=450, y=60)
 
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=580, y=150)
 
 
     # comboYear
@@ -141,7 +159,7 @@ def OpenNewWindowIAnalysis(Frame):
     ItemName_entry = Entry(Frame, textvariable = ItemName_text)
 
     #ItemName_entry.grid(row=2, column=2)
-
+    Frame.protocol('WM_DELETE_WINDOW',closure)
     return
 
 

@@ -1,58 +1,80 @@
 from tkinter import *
 from tkinter import messagebox
-import sellsIncome
-import itemAnalysis
+#import sellsIncome
+#import itemAnalysis
+from sys import exit
 
-
-def OpenNewWindowReports():
+def OpenNewWindowReports(Frame):
 
 
     def S_Income():
-        app.iconify()
-        win1 = Toplevel(app)
+        from sellsIncome import OpenNewWindowSells
+        win1 = Toplevel(Frame)
         win1.geometry('700x200')
         win1.title('Income Report')
-        sellsIncome.OpenNewWindowSells(win1)
+        Frame.withdraw()
+        OpenNewWindowSells(win1)
         return
 
     def IAnalysis():
-        print('Item Analysis')
-        app.iconify()
-        win2 = Toplevel(app)
+        from itemAnalysis import OpenNewWindowIAnalysis
+        win2 = Toplevel(Frame)
         win2.geometry('700x200')
         win2.title('Item Analysis')
-        itemAnalysis.OpenNewWindowIAnalysis(win2)
+        Frame.withdraw()
+        OpenNewWindowIAnalysis(win2)
         return
 
     def AccountingExpenses():
         print('Another Value')
-        #app.iconify()
-        #win3 = Toplevel(app)
+        #Frame.iconify()
+        #win3 = Toplevel(Frame)
         #win3.geometry('700x450')
         #win3.title('Branch control')
         #branch_Dashboard.OpenNewWindowBranchD(win3)
         #return
         #Buttons
 
+    def backCom():
+        from admin_Dashboard import OpenNewWindowAdmnDash
+
+        #Frame.iconify()
+        win1 = Toplevel(Frame)
+        win1.geometry('500x400')
+        win1.title('Administrator')
+        Frame.withdraw()
+        OpenNewWindowAdmnDash(win1)
+        #win1.deiconify()
+        return
+
+    def closure():
+        exit(0)
+
+
+    payment_btn = Button(Frame, text='Sells Income', width=25, command=S_Income)
+    payment_btn.place(x=50, y=50)
+
+    Users_btn = Button(Frame, text='Item Analysis', width=25, command=IAnalysis)
+    Users_btn.place(x=50, y=100)
+
+    Branch_btn = Button(Frame, text='Expenses', width=25, command=AccountingExpenses)
+    Branch_btn.place(x=50, y=150)
+
+    back_btn = Button(Frame, text='BACK', width=12, command=backCom)
+    back_btn.place(x=280, y=250)
+
+
+    Frame.protocol('WM_DELETE_WINDOW',closure)
+    return
+
+if __name__ == "__main__":
+
     app = Tk()
     app.title('Reports Window')
     app.geometry('400x300')
 
-    payment_btn = Button(app, text='Sells Income', width=25, command=S_Income)
-    payment_btn.place(x=50, y=50)
-
-    Users_btn = Button(app, text='Item Analysis', width=25, command=IAnalysis)
-    Users_btn.place(x=50, y=100)
-
-    Branch_btn = Button(app, text='Expenses', width=25, command=AccountingExpenses)
-    Branch_btn.place(x=50, y=150)
-
-
-
+    OpenNewWindowReports(app)
     app.mainloop()
-
-if __name__ == "__main__":
-    OpenNewWindowReports()
 
 
 
