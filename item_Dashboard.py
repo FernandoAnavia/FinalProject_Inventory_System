@@ -86,8 +86,8 @@ def OpenNewWindowItemD(Frame):
         
         mycursor = mydb.cursor()
 
-        sql = "INSERT INTO item (ItemId, IName, IDescription, BId, ItemClassID, S_Price, Discount) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        val = (ID_text.get(), Name_text.get(), Description_text.get(), Branch_text.get(), iClass_text.get(), S_price_text.get(), Discount_text.get())
+        sql = "INSERT INTO item (ItemId, IName, IDescription, BId, ItemClassID, S_Price, Discount, ExpDateVal) VALUES (%s, %s, %s, %s, %s, %s, %s,%s)"
+        val = (ID_text.get(), Name_text.get(), Description_text.get(), Branch_text.get(), iClass_text.get(), S_price_text.get(), Discount_text.get(),7)
         
         try:
             mycursor.execute(sql, val)

@@ -278,10 +278,10 @@ def OpenNewWindowUserD(Frame):
 
     #List
     part_list = Listbox(Frame, height=10, width=100, border=0)
-    part_list.place(x=425, y=300, anchor = "center", width = 750, height = 220)
+    part_list.place(x=425, y=300, anchor = "center", width = 800, height = 180)
 
     scrollbar = Scrollbar(Frame)
-    scrollbar.place(x=790, y=190, height = 220)
+    scrollbar.place(x=815, y=210, height = 180)
     part_list.configure(yscrollcommand=scrollbar.set)
     scrollbar.configure(command=part_list.yview)
 
@@ -305,7 +305,7 @@ def OpenNewWindowUserD(Frame):
     clear_btn.place(x=690, y=130)
 
     back_btn = Button(Frame, text='BACK', width=12, command=backCom)
-    back_btn.place(x=730, y=400)
+    back_btn.place(x=780, y=400)
 
 
     fill_list()
@@ -315,7 +315,7 @@ def OpenNewWindowUserD(Frame):
 if __name__ == "__main__":
     app = Tk()
     app.title('User control')
-    app.geometry('850x450')
+    app.geometry('900x450')
 
     OpenNewWindowUserD(app)
     app.mainloop()

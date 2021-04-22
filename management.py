@@ -26,7 +26,7 @@ def OpenNewWindowManagement(Frame):
         from user_Dashboard import OpenNewWindowUserD
         #Frame.iconify()
         win2 = Toplevel(Frame)
-        win2.geometry('850x450')
+        win2.geometry('900x450')
         win2.title('Users control')
         Frame.withdraw()
         OpenNewWindowUserD(win2)
