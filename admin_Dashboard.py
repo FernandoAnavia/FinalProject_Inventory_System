@@ -64,7 +64,7 @@ def OpenNewWindowAdmnDash(Frame):
         lowSv = cursor.fetchone()
         print(lowSv[0])
 
-        sql = "Select Product, RealStock from (with data as (Select ItemId, substring(IName,1,20) as Product, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput group by ItemId) b using (ItemID)) select Product, (InStock - Sold) as RealStock from data) x where RealStock < %s order by REalStock"
+        sql = "Select ItemID, Product, RealStock from (with data as (Select ItemId, substring(IName,1,20) as Product, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput group by ItemId) b using (ItemID)) select ItemID, Product, (InStock - Sold) as RealStock from data) x where RealStock < %s order by REalStock"
         cursor.execute(sql,(lowSv[0],))
 
         treeLowStock.delete(*treeLowStock.get_children())
@@ -84,7 +84,7 @@ def OpenNewWindowAdmnDash(Frame):
 
         for row in ItemIds:
             n = n+1
-            sql = "with data as (Select ItemId, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput where ItemId = %s group by ItemId) b using (ItemID)) select ItemId, (Sold) as RealStock from data"
+            sql = "with data as (Select ItemId, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput where ItemId = %s group by ItemId) b using (ItemID)) select ItemId, if((Instock - Sold)<0,InStock-1,Sold) as RealStock from data"
             cursor.execute(sql,ItemIds[n])
             realStock = cursor.fetchone()
             x=0
@@ -97,13 +97,13 @@ def OpenNewWindowAdmnDash(Frame):
                 
                     valRS = (realStock[1], realStock[0], realStock[1])
                     cursor.execute(sql,valRS)    
-                    #compDates = cursor.fetchone()
-                    for rec in cursor:
-                        treeExpiry.insert('','end',value=rec)
+                    compDates = cursor.fetchone()
 
+                    if compDates[3]<=compDates[4]:
+                        cursor.execute(sql,valRS)
+                        for rec in cursor:
+                            treeExpiry.insert('','end',value=rec)
 
-                   # if compDates[3]<compDates[4]:
-                    #    cursor.execute(sql,valRS) 
 
     
 
@@ -126,7 +126,7 @@ def OpenNewWindowAdmnDash(Frame):
 
     #treeView
 
-    columnsExpiry = ('Item ID', 'Product', 'Expiry Date', 'daysDif', 'daysAlarm', 'Stock')
+    columnsExpiry = ('Item ID', 'Product', 'Expiry Date', 'daysDif', 'daysAlarm', '#Items')
     treeExpiry = ttk.Treeview(Frame, height=10, columns=columnsExpiry, show='headings')
     treeExpiry.place(x=250, y= 270, width = 600 , height = 150)
 
@@ -139,7 +139,7 @@ def OpenNewWindowAdmnDash(Frame):
     treeExpiry.config(yscrollcommand=sb.set)
 
 
-    columnsLowStock = ('product','Current Stock')
+    columnsLowStock = ('Item ID', 'product','Current Stock')
     treeLowStock = ttk.Treeview(Frame, height=10, columns=columnsLowStock, show='headings')
     treeLowStock.place(x=250, y= 50, width = 600 , height = 150)
 
@@ -154,23 +154,25 @@ def OpenNewWindowAdmnDash(Frame):
 
     #Buttons
 
-    #shop_btn = Button(Frame, text='Shop', width=15, command=shop)
-    #shop_btn.place(x=150, y=50)
-
     Data_Manag_btn = Button(Frame, text='Data Management', width=15, command=Data_Management)
     Data_Manag_btn.place(x=100, y=60)
 
     Inventory_btn = Button(Frame, text='Inventory', width=15, command=Inventory)
     Inventory_btn.place(x=100, y=140)
 
-    #Accounting_btn = Button(Frame, text='Accounting', width=15, command=Accounting)
-    #Accounting_btn.place(x=150, y=200)
-
     Reports_btn = Button(Frame, text='Reports', width=15, command=Reports)
     Reports_btn.place(x=100, y=220)
 
     Settings_btn = Button(Frame, text='Settings', width=15, command=Settings)
     Settings_btn.place(x=100, y=300)
+
+    #Labels
+
+    LowAvailability_label = Label(Frame, text='Low Availability!!', font=('bold', 15), fg='red')
+    LowAvailability_label.place(x=250, y=20)
+
+    Expiry_label = Label(Frame, text='Expired Items or about to expired!!', font=('bold', 15), fg='red')
+    Expiry_label.place(x=250, y=240)
 
 
     fillAlerts()

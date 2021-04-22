@@ -68,7 +68,7 @@ def openNewInventoryW(Frame):
 
         #Frame.iconify()
         win1 = Toplevel(Frame)
-        win1.geometry('800x400')
+        win1.geometry('900x500')
         win1.title('Administrator')
         Frame.withdraw()
         OpenNewWindowAdmnDash(win1)

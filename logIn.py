@@ -34,7 +34,7 @@ def NewLoginWindow(Frame):
                         messagebox.showinfo('Success', 'Welcome ' + tablePass[1])
 
                         win1 = Toplevel(Frame)
-                        win1.geometry('500x300')
+                        win1.geometry('900x500')
                         win1.title('Administrator')
                         Frame.withdraw()
                         OpenNewWindowAdmnDash(win1)       
