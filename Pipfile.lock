@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "02b11890fb02d481bdbaf0aa71fa503f2ef5da9a6e03201f09575f04136544df"
+            "sha256": "03b0241bf5d252d9a443fe3066942f9573c7878951411e4a52fb9365dd029ca0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -27,7 +27,7 @@
             "hashes": [
                 "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"
             ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==0.18.2"
         },
         "pefile": {
@@ -37,12 +37,20 @@
             "markers": "sys_platform == 'win32'",
             "version": "==2019.4.18"
         },
-        "pyinstaller": {
+        "plyer": {
             "hashes": [
-                "sha256:f5c0eeb2aa663cce9a5404292c0195011fa500a6501c873a466b2e8cad3c950c"
+                "sha256:8de38b17bc438df36eedeacd546cf05303ab871855af0669fc4e8df51f2adf94",
+                "sha256:d62a1e68622042e6b9367ba429844e989ea7b13035fd1befe66f385aaaba6de1"
             ],
             "index": "pypi",
-            "version": "==4.2"
+            "version": "==2.0.0"
+        },
+        "pyinstaller": {
+            "hashes": [
+                "sha256:5ecf8bbc230d7298a796e52bb745b95eee12878d141f1645612c99246ecd23f2"
+            ],
+            "index": "pypi",
+            "version": "==4.3"
         },
         "pyinstaller-hooks-contrib": {
             "hashes": [

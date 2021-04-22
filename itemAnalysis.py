@@ -9,6 +9,7 @@ from sys import exit
 
 
 
+
 def OpenNewWindowIAnalysis(Frame):
 
     def yearFunction():
@@ -37,13 +38,18 @@ def OpenNewWindowIAnalysis(Frame):
 
     def Stock():
 
-
-        sqlQuery = "SELECT I.IName as Product, IFNULL(A.Quantity,0) - IFNULL(O.Quantity,0) AS Difference FROM Item I  LEFT JOIN ItemAcquired A ON I.ItemID = A.ItemID left JOIN ItemOutput O ON O.ItemID = I.ItemID group by I.ItemID"
-
+        plt.style.use('bmh')
+        sqlQuery = "with data as (Select ItemId, substring(IName,1,15) as Product, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput group by ItemId) b using (ItemID)) select Product, (InStock - Sold) as RealStock from data"
+                    
         df = read_sql(sqlQuery, mydb)
 
         lb = [row for row in df['Product']]
-        plot = df.plot.bar(title="Availability", x='Product', figsize=(13.5,8))
+        plot = df.plot.bar(title="Availability", x='Product', figsize=(13,7))
+        
+        for i in plot.patches:
+            plot.text(i.get_x(), i.get_height()-0.5,round(i.get_height(),0), fontsize= 7, color='black', weight='bold')
+
+        plt.tight_layout()
         plt.show()
 
 
@@ -65,6 +71,10 @@ def OpenNewWindowIAnalysis(Frame):
 
         lb = [row for row in df['Month']]
         plot = df.plot.bar(title="Yearly Income " + ItemName_combo.get() + " " + yearC_combo.get(), x='Month')
+
+        for i in plot.patches:
+            plot.text(i.get_x()+0.2, i.get_height()-.2,round(i.get_height(),0), fontsize= 9, color='black', weight='bold')
+
         plt.show()
 
     def combo_input():

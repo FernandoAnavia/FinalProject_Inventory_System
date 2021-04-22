@@ -85,7 +85,7 @@ def OpenNewWindowManagement(Frame):
 
         #Frame.iconify()
         win1 = Toplevel(Frame)
-        win1.geometry('500x400')
+        win1.geometry('800x400')
         win1.title('Administrator')
         Frame.withdraw()
         OpenNewWindowAdmnDash(win1)

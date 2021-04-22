@@ -26,21 +26,19 @@ def OpenNewWindowReports(Frame):
         return
 
     def AccountingExpenses():
-        print('Another Value')
-        #Frame.iconify()
-        #win3 = Toplevel(Frame)
-        #win3.geometry('700x450')
-        #win3.title('Branch control')
-        #branch_Dashboard.OpenNewWindowBranchD(win3)
-        #return
-        #Buttons
+        from Expenses import OpenNewWindowExpenses
+        win3 = Toplevel(Frame)
+        win3.geometry('700x200')
+        win3.title('Expenses Report')
+        OpenNewWindowExpenses(win3)
+        return
 
     def backCom():
         from admin_Dashboard import OpenNewWindowAdmnDash
 
         #Frame.iconify()
         win1 = Toplevel(Frame)
-        win1.geometry('500x400')
+        win1.geometry('800x400')
         win1.title('Administrator')
         Frame.withdraw()
         OpenNewWindowAdmnDash(win1)
@@ -50,6 +48,7 @@ def OpenNewWindowReports(Frame):
     def closure():
         exit(0)
 
+    #        Buttons
 
     payment_btn = Button(Frame, text='Sells Income', width=25, command=S_Income)
     payment_btn.place(x=50, y=50)

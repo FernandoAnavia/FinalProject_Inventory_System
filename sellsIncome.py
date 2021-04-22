@@ -18,6 +18,10 @@ def OpenNewWindowSells(Frame):
 
         lb = [row for row in df['year']]
         plot = df.plot.bar(title="Yearly Income", x='year')
+
+        for i in plot.patches:
+            plot.text(i.get_x()-.03, i.get_height()+1,round(i.get_height(),0), fontsize= 9, color='black', weight='bold')
+
         plt.show()
 
 
@@ -33,6 +37,11 @@ def OpenNewWindowSells(Frame):
 
         lb = [row for row in df['month']]
         plot = df.plot.bar(title="Monthly - " + yearC_combo.get(), x='month')
+
+        for i in plot.patches:
+            plot.text(i.get_x()-.03, i.get_height()+1,round(i.get_height(),0), fontsize= 9, color='black', weight='bold')
+
+
         plt.show()
 
 
