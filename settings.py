@@ -94,6 +94,7 @@ def OpenNewWindiwSettings(Frame):
                 except mysql.connector.Error as e:
                     messagebox.showerror('Error',e)
 
+                messagebox.showinfo('Info','Expiry Alert of All Products updated to: ' + Expiry_text.get())
                 fill_list()               
 
             else:
@@ -110,6 +111,7 @@ def OpenNewWindiwSettings(Frame):
                 except mysql.connector.Error as e:
                     messagebox.showerror('Error',e)
 
+                messagebox.showinfo('Info','Expiry Alert of: ' + Expiry_combo.get() + ' updated to: ' + Expiry_text.get())
                 fill_list()  
 
 

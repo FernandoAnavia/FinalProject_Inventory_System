@@ -93,7 +93,7 @@ def OpenNewWindowAdmnDash(Frame):
 
                 if x==0:
                     x=x+1
-                    sql = "select a.ItemID, i.IName, min(a.ExpDate) as nextExpDate, (min(a.ExpDate)-curdate()) as daysLeft, i.ExpDateVal, ((a.cumulative_sum)- %s) as nextExpAmount from (with data as (select ItemID, ExpDate, quantity from Itemacquired where ItemID=%s order by ExpDate) select ItemId, ExpDate, Quantity, sum(Quantity) over (order by ExpDate) as cumulative_sum from data) a left join Item I on a.ItemId = I.ItemID where cumulative_sum > %s"
+                    sql = "select a.ItemID, i.IName, min(a.ExpDate) as nextExpDate, datediff((min(a.ExpDate)),(curdate())) as daysLeft, i.ExpDateVal, ((a.cumulative_sum)- %s) as nextExpAmount from (with data as (select ItemID, ExpDate, quantity from Itemacquired where ItemID=%s order by ExpDate) select ItemId, ExpDate, Quantity, sum(Quantity) over (order by ExpDate) as cumulative_sum from data) a left join Item I on a.ItemId = I.ItemID where cumulative_sum > %s"
                 
                     valRS = (realStock[1], realStock[0], realStock[1])
                     cursor.execute(sql,valRS)    
