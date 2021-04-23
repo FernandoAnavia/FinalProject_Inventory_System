@@ -5,7 +5,7 @@ from db import *
 import re
 from sys import exit
 
-#main
+
 def OpenNewWindowAdmnDash(Frame):
 
 
@@ -84,7 +84,7 @@ def OpenNewWindowAdmnDash(Frame):
 
         for row in ItemIds:
             n = n+1
-            sql = "with data as (Select ItemId, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput where ItemId = %s group by ItemId) b using (ItemID)) select ItemId, if((Instock - Sold)<0,InStock-1,Sold) as RealStock from data"
+            sql = "with data as (Select ItemId, instock, sold from Item inner join (select ItemId, sum(quantity) as InStock from Itemacquired group by ItemId) a using (ItemID) inner join (select ItemId, sum(quantity) as Sold from Itemoutput where ItemId = %s group by ItemId) b using (ItemID)) select ItemId, if((Instock - Sold)<=0,InStock-1,Sold) as RealStock from data"
             cursor.execute(sql,ItemIds[n])
             realStock = cursor.fetchone()
             x=0
