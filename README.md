@@ -3,7 +3,7 @@
 #Inventory
 
 
-Dummy Data:
+Dummy Data used:
 
 insert into SingleVal (DescVal, val) values ('lowStock',10);
 
