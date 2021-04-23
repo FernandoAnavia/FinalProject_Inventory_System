@@ -5,7 +5,7 @@ from tkinter import ttk
 import re
 from sys import exit
 
-
+#main
 def OpenNewWindiwSettings(Frame):
 
     def combo_input():
