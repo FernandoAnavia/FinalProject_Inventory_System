@@ -3,6 +3,127 @@
 #Inventory
 
 
+MYSQL Data Base
+
+CREATE DATABASE IF NOT EXISTS InvSystem;
+
+USE InvSystem;
+
+CREATE TABLE IF NOT EXISTS UserType(
+uTypeId VARCHAR(5) NOT NULL, 
+typeOfUser VARCHAR(30),
+PRIMARY KEY (uTypeId)
+);
+
+
+CREATE TABLE IF NOT EXISTS UserSystem(
+UserId VARCHAR(5) NOT NULL, 
+firstName VARCHAR(30),
+lastName VARCHAR(20),
+loginPassword VARCHAR(10),
+uTypeId VARCHAR(5),
+contactNumber VARCHAR(20),
+email VARCHAR(30),
+PRIMARY KEY (UserId),
+foreign key (uTypeId) REFERENCES UserType(uTypeId)
+);
+
+CREATE TABLE IF NOT EXISTS Branch(
+BId VARCHAR(10) NOT NULL, 
+BName VARCHAR(50),
+contactNumber VARCHAR(20),
+email VARCHAR(30),
+PRIMARY KEY (BId)
+);
+
+CREATE TABLE IF NOT EXISTS ItemClassification (
+ItemClassID INT NOT NULL auto_increment,
+Classification VARCHAR(20),
+PRIMARY KEY (ItemClassID)
+);
+
+CREATE TABLE IF NOT EXISTS Item(
+ItemId VARCHAR(10) NOT NULL, 
+IName VARCHAR(50),
+IDescription VARCHAR(50),
+Bid VARCHAR(15),
+ItemClassID INT,
+S_Price Float(6),
+Discount Float(3),
+ExpDateVal int,
+PRIMARY KEY (ItemId),
+foreign key (Bid) REFERENCES Branch(BId),
+foreign key (ItemClassID) REFERENCES ItemClassification(ItemClassID)
+);
+
+
+CREATE TABLE IF NOT EXISTS Orders(
+OrderID INT NOT NULL auto_increment,
+ODescription VARCHAR (50),
+ODate date,
+Total Float(6),
+TaxPaid Float(3),
+PRIMARY KEY (orderID)
+);
+
+CREATE TABLE IF NOT EXISTS ItemAcquired(
+ItemId VARCHAR(10) NOT NULL, 
+OrderID INT,
+ExpDate date,
+PurchasePrice float (6),
+taxes Float (3),
+Quantity Int,
+PRIMARY KEY (ItemId, OrderID, ExpDate),
+foreign key (ItemId) REFERENCES Item(ItemId),
+foreign key (OrderID) REFERENCES Orders(OrderID)
+);
+
+CREATE TABLE IF NOT EXISTS Payment (
+PaymentID INT NOT NULL auto_increment,
+Method VARCHAR(10),
+PRIMARY KEY (PaymentID)
+);
+
+CREATE TABLE IF NOT EXISTS Ticket(
+TicketID INT NOT NULL auto_increment,
+UserId VARCHAR(5) NOT NULL, 
+TDate date,
+TTime time,
+PaymentID INT,
+Total Float(6),
+Discount Float(3),
+PRIMARY KEY (TicketID),
+foreign key (UserId) REFERENCES UserSystem(UserId),
+foreign key (PaymentID) REFERENCES Payment(PaymentID)
+);
+
+CREATE TABLE IF NOT EXISTS ItemStatus (
+StatusID INT NOT NULL auto_increment,
+StatusItemO VARCHAR(15),
+PRIMARY KEY (StatusID)
+);
+
+CREATE TABLE IF NOT EXISTS ItemOutput(
+ItemId VARCHAR(10) NOT NULL, 
+TicketID INT,
+StatusID INT,
+S_Price Float(6),
+Discount Float(3),
+Quantity Int,
+PRIMARY KEY (ItemId, TicketID),
+foreign key (ItemId) REFERENCES Item(ItemId),
+foreign key (TicketID) REFERENCES Ticket(TicketID),
+foreign key (StatusID) REFERENCES ItemStatus(StatusID)
+);
+
+CREATE TABLE IF NOT EXISTS SingleVal(
+ValId INT NOT NULL auto_increment,
+DescVal varchar(10) not null,
+val int,
+primary key (ValID)
+);
+
+
 Dummy Data used:
 
 insert into SingleVal (DescVal, val) values ('lowStock',10);
