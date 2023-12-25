@@ -5,6 +5,7 @@ from db import *
 from logInSession import *
 
 
+#Note to update Github
 
 def NewLoginWindow(Frame):
 
